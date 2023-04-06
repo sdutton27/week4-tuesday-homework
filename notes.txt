@@ -1,0 +1,61 @@
+Movie Theater ERD:
+
+Customers:
+    customer_id PRIMARY KEY 
+    first_name
+    last_name
+    billing_info
+    is_child
+    is_theatre_member
+    birthdate
+
+Movies:
+    movie_id PRIMARY KEY 
+    title
+    movie_description
+    runtime
+    rating
+    genre VARCHAR(30)
+
+Showings:
+    showing_id PRIMARY KEY 
+    movie_id * FK from movies
+    showtime
+
+Tickets:
+    ticket_id PRIMARY KEY
+    ticket_price
+    showing_id * foreign_key from showings 
+    customer_id * foreign_key from customers
+
+Concessions Items:
+    concession_item PRIMARY KEY
+    concessions_price 
+    concessions_type (drink,candy,popcorn)
+    in_stock - DEFAULT TRUE
+
+Concessions Inventory:
+    concession_inventory_id SERIAL PRIMARY KEY
+    concessions_item VARCHAR(50)* foreign key 
+    amount_available
+    storage_location VARCHAR(50)
+
+Concessions Sale: 
+    concessions_sale_id PRIMARY KEY
+    concession_item VARCHAR(50)* foreign key from concessions 
+    customer_id * foreign key from customer
+
+Purchase:
+    purchase_id PRIMARY KEY
+    ticket_id * foreign key from tickets
+    customer_id NOT NULL * foreign key from customers
+    concession_sale_id * foreign key from concession_sale
+    ticket_price * foreign key from tickets
+    concessions_total_cost * foreign key from concessions_sale
+
+JOIN table from movies to tickets-> showings.
+JOIN table from concessions to customer -> customer inventory, customer_sale
+=======
+To Do:
+- Insert Data into the tables
+- Change/Alter the tables as we go (5th point)
